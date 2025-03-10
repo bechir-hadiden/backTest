@@ -10,6 +10,9 @@ public interface ControleService {
     
     public Controle saveControle(Controle controle); 	
 
+    public Controle getControleById(Integer id); 
+
+     public void deleteControle(Integer id) ;
 
 
 }

@@ -8,8 +8,13 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entite.Controle;
 import com.example.demo.repos.ControleRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
+
+
+
 @Service
-public class ControleServiceImpl {
+public class ControleServiceImpl implements ControleService{
 	
 	
 	
@@ -22,6 +27,19 @@ public class ControleServiceImpl {
 
 	    public Controle saveControle(Controle controle) {
 	        return controleRepository.save(controle);
+	    }
+	    
+	    
+	    public Controle getControleById(Integer id) {
+	        return controleRepository.findById(id)
+	                .orElseThrow(() -> new EntityNotFoundException("Contrôle non trouvé avec l'ID " + id));
+	    }
+
+	    public void deleteControle(Integer id) {
+	        if (!controleRepository.existsById(id)) {
+	            throw new EntityNotFoundException("Contrôle non trouvé avec l'ID " + id);
+	        }
+	        controleRepository.deleteById(id);
 	    }
 
 }
