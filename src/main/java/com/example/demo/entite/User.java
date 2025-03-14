@@ -2,6 +2,7 @@ package com.example.demo.entite;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -10,8 +11,8 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
-	@Id
-    private Integer cuid;
+    @Id
+    private Long cuid;
 
     private String nom;
     private String prenom;
@@ -21,8 +22,6 @@ public class User {
     @JoinColumn(name = "id_role")
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Controle> controles;
-
-    // Getters et setters
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Controle> controlesEffectues;
 }

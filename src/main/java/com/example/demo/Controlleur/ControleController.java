@@ -18,50 +18,26 @@ import com.example.demo.repos.CategorieRepository;
 import com.example.demo.services.ControleService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/controles")
 public class ControleController {
-
     @Autowired
     private ControleService controleService;
 
-    
-    @Autowired
-    private CategorieRepository categorieRepository; 
-    
-    
-    @GetMapping("/all")
+    @GetMapping
     public List<Controle> getAllControles() {
         return controleService.getAllControles();
     }
 
-    @PostMapping
-    public Controle createControle(@RequestBody Controle controleRequest) {
-        Controle controle = new Controle();
-        controle.setIdActe(controleRequest.getIdActe());
-        controle.setCuid(controleRequest.getCuid());
-        controle.setDateControle(controleRequest.getDateControle());
-        controle.setTauxConformite(controleRequest.getTauxConformite());
-        
-        // ✅ Ajout de la gestion de la catégorie
-        Categorie categorie = categorieRepository.findById(controleRequest.getIdCategorie())
-                .orElseThrow(() -> new RuntimeException("Categorie not found"));
-        controle.setCategorie(categorie);
-
-        // ✅ Ajout de la gestion du champ etat
-        controle.setEtat(controleRequest.getEtat());
-
-        return categorieRepository.save(controle);
-    }
-
-    
-    
-
-     	@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Controle> getControleById(@PathVariable Integer id) {
         Controle controle = controleService.getControleById(id);
-        return ResponseEntity.ok(controle);
+        return controle != null ? ResponseEntity.ok(controle) : ResponseEntity.notFound().build();
     }
 
+    @PostMapping
+    public Controle createControle(@RequestBody Controle controle) {
+        return controleService.saveControle(controle);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteControle(@PathVariable Integer id) {

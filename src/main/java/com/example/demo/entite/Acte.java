@@ -2,12 +2,14 @@ package com.example.demo.entite;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,83 +19,48 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Acte {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-    private Long acteId; 
-    private String type; 
-    private String description; 
-    private LocalDate dateModification; 
-    private String modifiedBy; 
-    private LocalDateTime modificationDate;
-    
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private ActFile actFile;
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long idActe;
+	    private LocalDate dateReception;
+	    @OneToMany(mappedBy = "acte", cascade = CascadeType.ALL)
+	    private List<Controle> controles;
+	    
+	    
+	    
+	    
+	    
+	    
 
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public Long getActeId() {
-		return acteId;
-	}
-	
-	public void setActeId(Long acteId) {
-		this.acteId = acteId;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public LocalDate getDateModification() {
-		return dateModification;
-	}
-	
-	public void setDateModification(LocalDate dateModification) {
-		this.dateModification = dateModification;
-	}
-	
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-		
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	
-	public LocalDateTime getModificationDate() {
-		return modificationDate;
-	}
-	
-	public void setModificationDate(LocalDateTime modificationDate) {
-		this.modificationDate = modificationDate;
-	}
+		public Long getIdActe() {
+			return idActe;
+		}
 
-//	public ActFile getActFile() {
-//		return null;
-//	}
+		public void setIdActe(Long idActe) {
+			this.idActe = idActe;
+		}
 
-//	public void setActFile(ActFile actFile) {
-//		this.actFile = actFile;
-//	}
+		public LocalDate getDateReception() {
+			return dateReception;
+		}
 
+		public void setDateReception(LocalDate dateReception) {
+			this.dateReception = dateReception;
+		}
+
+		public List<Controle> getControles() {
+			return controles;
+		}
+
+		public void setControles(List<Controle> controles) {
+			this.controles = controles;
+		}
+	    
+	    
+	    
+
+
+	
 
     
     
